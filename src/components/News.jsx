@@ -2,24 +2,34 @@ import styled from 'styled-components';
 import useFetch from '../hooks/useFetch';
 import rssImg from '../assets/rss.svg';
 
-const Container = styled.div`
+const Container = styled.section`
 	width: 100%;
 	height: auto;
 	padding: 0 10px;
 `;
 
-const StyledListItem = styled.li`
+const StyledListItem = styled.div`
 	display: grid;
-	grid-template-columns: 30px repeat(2, 1fr) 100px;
+	grid-template-columns: 30px 1fr;
 	grid-template-rows: repeat(2, 1fr);
 	grid-template-areas:
-		'image title author date'
-		'image score ... date';
+		'image title'
+		'textInfo textInfo';
+	margin-top: 20px;
+`;
+
+const StyledInfoBlock = styled.div`
+	display: flex;
+	grid-area: ${(props) => props.area};
 `;
 
 const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
+	text-transform: ${(props) => props.uppercase || 'none'};
+	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
+	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
+	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
 `;
 
 const StyledImage = styled.span`
@@ -40,19 +50,19 @@ const News = () => {
 
 	return (
 		<Container>
-			<ul>
-				{posts.map((post) => (
-					<StyledListItem key={post.id}>
-						<StyledImage area='image' image={rssImg} />
-						<StyledText area='title' color='#000000' >
-							{post.title}
-						</StyledText>
-						<StyledText area='author'>by {post.by}</StyledText>
-						<StyledText area='score'>{post.score} points</StyledText>
-						<StyledText area='date'>{post.time}</StyledText>
-					</StyledListItem>
-				))}
-			</ul>
+			{posts.map((post) => (
+				<StyledListItem key={post.id}>
+					<StyledImage area='image' image={rssImg} />
+					<StyledText area='title' color='#000000' uppercase>
+						{post.title}
+					</StyledText>
+					<StyledInfoBlock area='textInfo'>
+						<StyledText>{post.score} points</StyledText>
+						<StyledText borderLeft>by {post.by}</StyledText>
+						<StyledText borderLeft>{post.time}</StyledText>
+					</StyledInfoBlock>
+				</StyledListItem>
+			))}
 		</Container>
 	);
 };
