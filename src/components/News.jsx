@@ -1,22 +1,23 @@
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import useFetch from '../hooks/useFetch';
-import { BASE_URI } from '../utils/const';
-import useApi from '../hooks/useApi';
 
 const News = () => {
-	// console.log(useApi());
-	const { loading, error, data } = useFetch(`${BASE_URI}/newstories.json`);
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	const {posts, loading, error} = useFetch();
+  if (loading) return <div>Loading...</div>;
+	if (error) return <div>Error occurred, try again later...</div>
+
 
 	return (
-		<div>
-			{data.map((review) => (
-				<div key={review} className='review-card'>
-					<p>{review}</p>
-				</div>
-			))}
-		</div>
+    <div>
+      <h1>HackerNews Top 10 Posts</h1>
+      <ul>
+        {posts.map(post => (
+          <li key={post.id}>
+            <a href={post.url}>{post.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
 	);
 };
 

@@ -1,31 +1,37 @@
 import { useEffect, useState } from 'react';
+import { BASE_URL } from '../utils/const';
 
-const useFetch = (url) => {
-	const [data, setData] = useState(null);
+const useFetch = () => {
+	const [posts, setPosts] = useState([]);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setLoading(true);
-
+		async function getNewStories() {
 			try {
-				const res = await fetch(url);
-				const json = await res.json();
-				const shortList = json.splice(0, 5);
+				const newStories = await fetch(`${BASE_URL}/newstories.json`);
 
-				setData(shortList);
+				if (!newStories.ok) {
+					throw new Error(`${newStories.status} ${newStories.statusText}`);
+				}
+
+				const newStoriesArray = await newStories.json();
+				const promises = newStoriesArray
+					.slice(0, 5)
+					.map((id) => fetch(`${BASE_URL}/item/${id}.json`).then((storie) => storie.json()));
+				const result = await Promise.all(promises);
 				setLoading(false);
-			} catch (error) {
-				setError(error);
+				setPosts(result);
+			} catch (err) {
 				setLoading(false);
+				setError(err);
+				console.error(err);
 			}
-		};
+		}
+		getNewStories();
+	}, []);
 
-		fetchData();
-	}, [url]);
-
-	return { loading, error, data };
+	return { loading, error, posts };
 };
 
 export default useFetch;
