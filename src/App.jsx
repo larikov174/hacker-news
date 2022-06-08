@@ -6,7 +6,7 @@ import Header from './components/Header';
 import Stories from './components/Stories';
 import Story from './components/Story';
 import Footer from './components/Footer';
-// import useFetch from '../hooks/useFetch';
+import useFetch from './hooks/useFetch';
 
 const MainContainer = styled.div`
 	display: grid;
@@ -22,15 +22,19 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+	const { posts, loading, error } = useFetch();
 	const [postId, setPostId] = useState(null);
-	const handlePostSelect = ({postId}) => setPostId(postId);
+	const handlePostSelect = ({ postId }) => setPostId(postId);
 
 	return (
 		<MainContainer>
 			<Header />
 
 			<Routes>
-				<Route path='/' element={<Stories onPostSelect={handlePostSelect} />} />
+				<Route
+					path='/'
+					element={<Stories onPostSelect={handlePostSelect} posts={posts} loading={loading} error={error} />}
+				/>
 				<Route path='/story' element={<Story postId={postId} />} />
 			</Routes>
 

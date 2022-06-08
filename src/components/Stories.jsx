@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
-import useFetch from '../hooks/useFetch';
 import rssImg from '../assets/rss.svg';
 
 const Container = styled.section`
@@ -50,8 +49,7 @@ const StyledImage = styled.span`
 	grid-area: image;
 `;
 
-const Stories = ({ onPostSelect }) => {
-	const { posts, loading, error } = useFetch();
+const Stories = ({ onPostSelect, posts, loading, error }) => {
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	const handleClick = (postId) => onPostSelect({ postId });
 	if (loading) return <div>Loading...</div>;
