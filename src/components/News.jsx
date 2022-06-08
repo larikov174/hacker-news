@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { fromUnixTime, format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import useFetch from '../hooks/useFetch';
 import rssImg from '../assets/rss.svg';
 
@@ -45,6 +47,7 @@ const StyledImage = styled.span`
 
 const News = () => {
 	const { posts, loading, error } = useFetch();
+	const convertTime = (unixTime) => format(fromUnixTime(unixTime), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred, try again later...</div>;
 
@@ -59,7 +62,7 @@ const News = () => {
 					<StyledInfoBlock area='textInfo'>
 						<StyledText>{post.score} points</StyledText>
 						<StyledText borderLeft>by {post.by}</StyledText>
-						<StyledText borderLeft>{post.time}</StyledText>
+						<StyledText borderLeft>{convertTime(post.time)}</StyledText>
 					</StyledInfoBlock>
 				</StyledListItem>
 			))}
