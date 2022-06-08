@@ -5,7 +5,7 @@ import rssImg from '../assets/rss.svg';
 const Container = styled.div`
 	width: 100%;
 	height: auto;
-	padding: 0 20px;
+	padding: 0 10px;
 `;
 
 const StyledListItem = styled.li`
@@ -43,8 +43,8 @@ const News = () => {
 			<ul>
 				{posts.map((post) => (
 					<StyledListItem key={post.id}>
-						<StyledImage image={rssImg} />
-						<StyledText color='#000000' area='title'>
+						<StyledImage area='image' image={rssImg} />
+						<StyledText area='title' color='#000000' >
 							{post.title}
 						</StyledText>
 						<StyledText area='author'>by {post.by}</StyledText>
