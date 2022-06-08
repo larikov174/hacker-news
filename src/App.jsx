@@ -1,7 +1,10 @@
 import './App.css';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './components/Header';
-import News from './components/News';
+import Stories from './components/Stories';
+import Story from './components/Story';
 import Footer from './components/Footer';
 
 const MainContainer = styled.div`
@@ -18,10 +21,18 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+	const [postId, setPostId] = useState(null);
+	const handlePostSelect = ({postId}) => setPostId(postId);
+
 	return (
 		<MainContainer>
 			<Header />
-			<News />
+
+			<Routes>
+				<Route path='/' element={<Stories onPostSelect={handlePostSelect} />} />
+				<Route path='/story' element={<Story postId={postId} />} />
+			</Routes>
+
 			<Footer />
 		</MainContainer>
 	);

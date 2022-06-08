@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
@@ -18,6 +19,10 @@ const StyledListItem = styled.div`
 		'image title'
 		'textInfo textInfo';
 	margin-top: 20px;
+`;
+
+const StyledLink = styled(Link)`
+	grid-area: title;
 `;
 
 const StyledInfoBlock = styled.div`
@@ -45,9 +50,10 @@ const StyledImage = styled.span`
 	grid-area: image;
 `;
 
-const News = () => {
+const Stories = ({ onPostSelect }) => {
 	const { posts, loading, error } = useFetch();
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
+	const handleClick = (postId) => onPostSelect({ postId });
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred, try again later...</div>;
 
@@ -56,9 +62,9 @@ const News = () => {
 			{posts.map((post) => (
 				<StyledListItem key={post.id}>
 					<StyledImage area='image' image={rssImg} />
-					<StyledText area='title' color='#000000' uppercase>
+					<StyledLink to={'/story'} onClick={()=>handleClick(post.id)}>
 						{post.title}
-					</StyledText>
+					</StyledLink>
 					<StyledInfoBlock area='textInfo'>
 						<StyledText>{post.score} points</StyledText>
 						<StyledText borderLeft>by {post.by}</StyledText>
@@ -70,4 +76,4 @@ const News = () => {
 	);
 };
 
-export default News;
+export default Stories;
