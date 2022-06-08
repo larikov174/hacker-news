@@ -47,7 +47,7 @@ const StyledImage = styled.span`
 
 const News = () => {
 	const { posts, loading, error } = useFetch();
-	const convertTime = (unixTime) => format(fromUnixTime(unixTime), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
+	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred, try again later...</div>;
 
