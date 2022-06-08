@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Stories from './components/Stories';
 import Story from './components/Story';
 import Footer from './components/Footer';
+// import useFetch from '../hooks/useFetch';
 
 const MainContainer = styled.div`
 	display: grid;

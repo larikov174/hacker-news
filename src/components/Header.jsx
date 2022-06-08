@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
 
@@ -34,7 +35,7 @@ const Button = styled.button`
 	width: 80px;
 	height: 30px;
 	background-color: transparent;
-	margin-left: auto;
+	margin-left: 20px;
 	border: 1px solid #000000;
 	border-radius: 5px;
 	&:hover {
@@ -50,11 +51,16 @@ const Button = styled.button`
 `;
 
 const Header = () => {
+	const navigate = useNavigate();
+	const location = useLocation().pathname;
+	const handleBackHome = () => navigate('/');
+
 	return (
 		<Container>
 			<Logo />
 			<Title>Hacker news</Title>
 			<Button>update</Button>
+			{location === '/story' && <Button onClick={handleBackHome}>home</Button>}
 		</Container>
 	);
 };
