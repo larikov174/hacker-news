@@ -82,6 +82,7 @@ const StoryCard = ({ selectedStoryId, story }) => {
 					<StyledText>{story.score} points</StyledText>
 				)}
 				<StyledText borderLeft>by {story.by}</StyledText>
+				<StyledText borderLeft>comments: {story.descendants}</StyledText>
 				<StyledText borderLeft>{convertTime(story.time)}</StyledText>
 				{location === '/story' && (
 					<StyledText borderLeft>
@@ -90,6 +91,7 @@ const StoryCard = ({ selectedStoryId, story }) => {
 					</StyledText>
 				)}
 			</StyledInfoBlock>
+			<div>{story.kids}</div>
 		</StyledListItem>
 	);
 };

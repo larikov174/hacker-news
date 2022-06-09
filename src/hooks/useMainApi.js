@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 export default function useMainApi() {
 	const [stories, setStories] = useState(null);
 	const [story, setStory] = useState(null);
+	const [comments, setComments] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -30,6 +31,22 @@ export default function useMainApi() {
 			console.error(err);
 		}
 	}
+
+	async function getComments(array) {
+		try {
+			const arrayWithIds = array;
+			const promises = arrayWithIds
+				.slice(0, LIST_LIMIT_LENGTH)
+				.map((id) => fetch(`${BASE_URL}/item/${id}.json`).then((comments) => comments.json()));
+			const result = await Promise.all(promises);
+			setLoading(false);
+			setComments(result);
+		} catch (err) {
+			setError(err);
+			console.error(err);
+		}
+	}
+
 	useEffect(() => {
 		setInterval(() => {
 			getStories();
@@ -44,7 +61,9 @@ export default function useMainApi() {
 		error,
 		stories,
 		story,
+		comments,
 		getStories,
 		getStoryById,
+		getComments,
 	};
 }
