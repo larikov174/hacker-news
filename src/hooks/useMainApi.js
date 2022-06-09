@@ -21,8 +21,7 @@ export default function useMainApi() {
 			const arrayWithIds = await rowData.json();
 			const promises = arrayWithIds
 				.slice(0, LIST_LIMIT_LENGTH)
-				.map((id) => fetch(`${BASE_URL}/item/${id}.json`)
-				.then((storie) => storie.json()));
+				.map((id) => fetch(`${BASE_URL}/item/${id}.json`).then((stories) => stories.json()));
 			const result = await Promise.all(promises);
 			setLoading(false);
 			setStories(result);
@@ -32,7 +31,12 @@ export default function useMainApi() {
 		}
 	}
 	useEffect(() => {
-		getStories();
+		setInterval(() => {
+			getStories();
+		}, 10000);
+		return () => {
+			clearInterval(getStories());
+		};
 	}, []);
 
 	return {
