@@ -20,11 +20,11 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const { loading, error, stories, story, getStoryById } = useMainApi();
+	const { loading, error, stories, story, getStoryById, getStories } = useMainApi();
 
 	return (
 		<MainContainer>
-			<Header />
+			<Header updateOnClick={getStories}/>
 			<Routes>
 				<Route
 					path='/'

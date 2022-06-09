@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
 
@@ -50,16 +50,17 @@ const Button = styled.button`
 	}
 `;
 
-const Header = () => {
+const Header = ({ updateOnClick }) => {
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 	const handleBackHome = () => navigate('/');
+	const handleUpdate = () => updateOnClick();
 
 	return (
 		<Container>
 			<Logo />
 			<Title>Hacker news</Title>
-			<Button>update</Button>
+			<Button onClick={handleUpdate}>update</Button>
 			{location === '/story' && <Button onClick={handleBackHome}>home</Button>}
 		</Container>
 	);
