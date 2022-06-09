@@ -4,12 +4,6 @@ import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import rssImg from '../assets/rss.svg';
 
-const Container = styled.section`
-	width: 100%;
-	height: auto;
-	padding: 0 10px;
-`;
-
 const StyledListItem = styled.div`
 	display: grid;
 	grid-template-columns: 30px 1fr;
@@ -49,29 +43,23 @@ const StyledImage = styled.span`
 	grid-area: image;
 `;
 
-const Stories = ({ selectedStory, stories, loading, error }) => {
+const StoryCard = ({ selectedStoryId, story }) => {
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
-	const handleClick = (postId) => selectedStory(postId);
-	if (loading) return <div>Loading...</div>;
-	if (error) return <div>Error occurred, try again later...</div>;
+	const handleClick = (storyId) => selectedStoryId(storyId);
 
 	return (
-		<Container>
-			{stories.map((post) => (
-				<StyledListItem key={post.id}>
-					<StyledImage area='image' image={rssImg} />
-					<StyledLink to={'/story'} onClick={()=>handleClick(post.id)}>
-						{post.title}
-					</StyledLink>
-					<StyledInfoBlock area='textInfo'>
-						<StyledText>{post.score} points</StyledText>
-						<StyledText borderLeft>by {post.by}</StyledText>
-						<StyledText borderLeft>{convertTime(post.time)}</StyledText>
-					</StyledInfoBlock>
-				</StyledListItem>
-			))}
-		</Container>
+		<StyledListItem key={story.id}>
+			<StyledImage area='image' image={rssImg} />
+			<StyledLink to={'/story'} onClick={() => handleClick(story.id)}>
+				{story.title}
+			</StyledLink>
+			<StyledInfoBlock area='textInfo'>
+				<StyledText>{story.score} points</StyledText>
+				<StyledText borderLeft>by {story.by}</StyledText>
+				<StyledText borderLeft>{convertTime(story.time)}</StyledText>
+			</StyledInfoBlock>
+		</StyledListItem>
 	);
 };
 
-export default Stories;
+export default StoryCard;

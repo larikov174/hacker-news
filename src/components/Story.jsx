@@ -1,9 +1,11 @@
+import StoryCard from "./StoryCard";
 
-const Story = ({selectedStory}) => {
+const Story = ({selectedStory, loading}) => {
 	console.log(selectedStory);
+	if (loading) return <div>Loading...</div>;
 
 	return(
-		<div>Story</div>
+		<StoryCard story={selectedStory} />
 	)
 }
 
