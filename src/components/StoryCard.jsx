@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import rssImg from '../assets/rss.svg';
+import commentIcon from '../assets/comment-icon.svg';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -14,8 +15,16 @@ const StyledListItem = styled.div`
 	margin-top: 20px;
 `;
 
-const StyledLink = styled(Link)`
+const StyledInnerLink = styled(Link)`
 	grid-area: title;
+`;
+
+const StyledLink = styled.a`
+	color: ${(props) => props.color || '#7d7d7d'};
+	text-transform: ${(props) => props.uppercase || 'none'};
+	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
+	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
+	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
 `;
 
 const StyledInfoBlock = styled.div`
@@ -30,6 +39,8 @@ const StyledText = styled.p`
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
+	display: flex;
+	align-items: center;
 `;
 
 const StyledImage = styled.span`
@@ -40,23 +51,43 @@ const StyledImage = styled.span`
 	width: 15px;
 	height: 15px;
 	display: block;
-	grid-area: image;
+	grid-area: ${(props) => props.area || ''};
+	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
 const StoryCard = ({ selectedStoryId, story }) => {
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	const handleClick = (storyId) => selectedStoryId(storyId);
+	const location = useLocation().pathname;
 
 	return (
 		<StyledListItem key={story.id}>
 			<StyledImage area='image' image={rssImg} />
-			<StyledLink to={'/story'} onClick={() => handleClick(story.id)}>
-				{story.title}
-			</StyledLink>
+			{location === '/story' ? (
+				<StyledText area='title' color='#000000'>
+					{story.title}
+				</StyledText>
+			) : (
+				<StyledInnerLink to={'/story'} onClick={() => handleClick(story.id)}>
+					{story.title}
+				</StyledInnerLink>
+			)}
 			<StyledInfoBlock area='textInfo'>
-				<StyledText>{story.score} points</StyledText>
+				{location === '/story' ? (
+					<StyledLink href={story.url} target='_blank' rel='noopener noreferrer'>
+						More details...
+					</StyledLink>
+				) : (
+					<StyledText>{story.score} points</StyledText>
+				)}
 				<StyledText borderLeft>by {story.by}</StyledText>
 				<StyledText borderLeft>{convertTime(story.time)}</StyledText>
+				{location === '/story' && (
+					<StyledText borderLeft>
+						<StyledImage marginLR image={commentIcon} />
+						{story.descendants} comments
+					</StyledText>
+				)}
 			</StyledInfoBlock>
 		</StyledListItem>
 	);

@@ -21,7 +21,7 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const { 		
+	const {	
 		loading,
 		error,
 		stories,

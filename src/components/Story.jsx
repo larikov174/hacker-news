@@ -1,12 +1,28 @@
-import StoryCard from "./StoryCard";
+import styled from 'styled-components';
+import StoryCard from './StoryCard';
+import { useEffect, useState } from 'react';
 
-const Story = ({selectedStory, loading}) => {
-	console.log(selectedStory);
+const Container = styled.section`
+	width: 100%;
+	height: auto;
+	padding: 0 10px;
+`;
+
+const Story = ({ selectedStory, loading }) => {
+	const [story, setStory] = useState(null)
+
+	useEffect(() => {
+		setStory(selectedStory);
+	}, [selectedStory]);
+	
 	if (loading) return <div>Loading...</div>;
 
-	return(
-		<StoryCard story={selectedStory} />
+	return (
+	story &&
+		<Container>
+			<StoryCard story={story} />
+		</Container>
 	)
-}
+};
 
 export default Story;
