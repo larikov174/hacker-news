@@ -13,6 +13,7 @@ const StyledListItem = styled.div`
 		'image title'
 		'textInfo textInfo';
 	margin-top: 20px;
+	row-gap: 5px;
 `;
 
 const StyledInnerLink = styled(Link)`
