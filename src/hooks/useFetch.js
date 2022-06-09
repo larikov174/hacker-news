@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BASE_URL } from '../utils/const';
+import { BASE_URL, LIST_LIMIT_LENGTH } from '../utils/const';
 
 const useFetch = () => {
 	const [posts, setPosts] = useState([]);
@@ -17,7 +17,7 @@ const useFetch = () => {
 
 				const newStoriesArray = await newStories.json();
 				const promises = newStoriesArray
-					.slice(0, 5)
+					.slice(0, LIST_LIMIT_LENGTH)
 					.map((id) => fetch(`${BASE_URL}/item/${id}.json`).then((storie) => storie.json()));
 				const result = await Promise.all(promises);
 				setLoading(false);

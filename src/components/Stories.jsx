@@ -49,15 +49,15 @@ const StyledImage = styled.span`
 	grid-area: image;
 `;
 
-const Stories = ({ onPostSelect, posts, loading, error }) => {
+const Stories = ({ selectedStory, stories, loading, error }) => {
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
-	const handleClick = (postId) => onPostSelect({ postId });
+	const handleClick = (postId) => selectedStory(postId);
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred, try again later...</div>;
 
 	return (
 		<Container>
-			{posts.map((post) => (
+			{stories.map((post) => (
 				<StyledListItem key={post.id}>
 					<StyledImage area='image' image={rssImg} />
 					<StyledLink to={'/story'} onClick={()=>handleClick(post.id)}>

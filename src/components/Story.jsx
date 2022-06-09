@@ -1,7 +1,7 @@
 
+const Story = ({selectedStory}) => {
+	console.log(selectedStory);
 
-const Story = ({postId}) => {
-	console.log(postId);
 	return(
 		<div>Story</div>
 	)

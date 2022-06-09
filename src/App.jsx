@@ -1,12 +1,11 @@
 import './App.css';
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './components/Header';
 import Stories from './components/Stories';
 import Story from './components/Story';
 import Footer from './components/Footer';
-import useFetch from './hooks/useFetch';
+import useMainApi from './hooks/useMainApi';
 
 const MainContainer = styled.div`
 	display: grid;
@@ -22,9 +21,13 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const { posts, loading, error } = useFetch();
-	const [postId, setPostId] = useState(null);
-	const handlePostSelect = ({ postId }) => setPostId(postId);
+	const { 		
+		loading,
+		error,
+		stories,
+		story,
+		getStoryById
+	} = useMainApi();
 
 	return (
 		<MainContainer>
@@ -33,9 +36,9 @@ function App() {
 			<Routes>
 				<Route
 					path='/'
-					element={<Stories onPostSelect={handlePostSelect} posts={posts} loading={loading} error={error} />}
+					element={<Stories selectedStory={getStoryById} stories={stories} loading={loading} error={error} />}
 				/>
-				<Route path='/story' element={<Story postId={postId} />} />
+				<Route path='/story' element={<Story selectedStory={story} />} />
 			</Routes>
 
 			<Footer />
