@@ -10,17 +10,22 @@ const Container = styled.section`
 
 const Story = ({ selectedStory, loading, getComments, comments }) => {
 	const [story, setStory] = useState(null)
+	const [commentsData, setCommentsData] = useState(null);
 
 	useEffect(() => {
 		setStory(selectedStory);
 	}, [selectedStory]);
+
+	useEffect(() => {
+		setCommentsData(comments);
+	}, [comments]);
 	
 	if (loading) return <div>Loading...</div>;
 
 	return (
 	story &&
 		<Container>
-			<StoryCard story={story} getComments={getComments} comments={comments} />
+			<StoryCard story={story} getComments={getComments} comments={commentsData} />
 		</Container>
 	)
 };

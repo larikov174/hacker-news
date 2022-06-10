@@ -41,6 +41,7 @@ export default function useMainApi() {
 			const result = await Promise.all(promises);
 			setLoading(false);
 			setComments(result);
+			console.log(result);
 		} catch (err) {
 			setError(err);
 			console.error(err);

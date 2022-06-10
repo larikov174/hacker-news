@@ -63,16 +63,14 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 	const onLoad = (data) => {
 		getComments(data.kids);
 	};
-	const [commentsData, setCommentsData] = useState(null);
+
 	const location = useLocation().pathname;
 
 	useEffect(() => {
 		location === '/story' && onLoad(story);
 	}, []);
 
-	useEffect(() => {
-		setCommentsData(comments);
-	}, [comments]);
+
 
 	return (
 		<StyledListItem key={story.id}>
@@ -104,7 +102,7 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 					</StyledText>
 				)}
 			</StyledInfoBlock>
-			{commentsData && commentsData.map((item) => <div key={item.id}>{item.id}</div>)}
+			{comments && comments.map((item) => <div key={item.id}><span>{item.id}</span></div>)}
 		</StyledListItem>
 	);
 };
