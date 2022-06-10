@@ -33,8 +33,8 @@ export default function useMainApi() {
 	}
 
 	async function getComments(array) {
+		const arrayWithIds = await array;
 		try {
-			const arrayWithIds = array;
 			const promises = arrayWithIds
 				.slice(0, LIST_LIMIT_LENGTH)
 				.map((id) => fetch(`${BASE_URL}/item/${id}.json`).then((comments) => comments.json()));

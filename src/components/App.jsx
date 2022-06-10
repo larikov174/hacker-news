@@ -20,17 +20,21 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const { loading, error, stories, story, getStoryById, getStories } = useMainApi();
+	const { loading, error, stories, story, getStoryById, getStories, getComments, comments } = useMainApi();
+	const handleComments = (array) => getComments(array);
 
 	return (
 		<MainContainer>
-			<Header updateOnClick={getStories}/>
+			<Header updateOnClick={getStories} />
 			<Routes>
 				<Route
 					path='/'
 					element={<Main selectedStory={getStoryById} stories={stories} loading={loading} error={error} />}
 				/>
-				<Route path='/story' element={<Story selectedStory={story} loading={loading} />} />
+				<Route
+					path='/story'
+					element={<Story selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />}
+				/>
 			</Routes>
 			<Footer />
 		</MainContainer>

@@ -8,7 +8,7 @@ const Container = styled.section`
 	padding: 0 10px;
 `;
 
-const Story = ({ selectedStory, loading }) => {
+const Story = ({ selectedStory, loading, getComments, comments }) => {
 	const [story, setStory] = useState(null)
 
 	useEffect(() => {
@@ -20,7 +20,7 @@ const Story = ({ selectedStory, loading }) => {
 	return (
 	story &&
 		<Container>
-			<StoryCard story={story} />
+			<StoryCard story={story} getComments={getComments} comments={comments} />
 		</Container>
 	)
 };

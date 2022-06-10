@@ -4,6 +4,7 @@ import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
+import { useEffect, useState } from 'react';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -56,10 +57,22 @@ const StyledImage = styled.span`
 	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
-const StoryCard = ({ selectedStoryId, story }) => {
+const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	const handleClick = (storyId) => selectedStoryId(storyId);
+	const onLoad = (data) => {
+		getComments(data.kids);
+	};
+	const [commentsData, setCommentsData] = useState(null);
 	const location = useLocation().pathname;
+
+	useEffect(() => {
+		location === '/story' && onLoad(story);
+	}, []);
+
+	useEffect(() => {
+		setCommentsData(comments);
+	}, [comments]);
 
 	return (
 		<StyledListItem key={story.id}>
@@ -91,7 +104,7 @@ const StoryCard = ({ selectedStoryId, story }) => {
 					</StyledText>
 				)}
 			</StyledInfoBlock>
-			<div>{story.kids}</div>
+			{commentsData && commentsData.map((item) => <div key={item.id}>{item.id}</div>)}
 		</StyledListItem>
 	);
 };
