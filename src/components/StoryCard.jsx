@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fromUnixTime, format } from 'date-fns';
-import { enUS } from 'date-fns/locale';
 import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
+import convertTime from '../utils/convertTime';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -59,7 +58,6 @@ const StyledImage = styled.span`
 `;
 
 const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
-	const convertTime = (initData) => format(fromUnixTime(initData), 'dd MMMM yyyy, hh:mm:ss', { locale: enUS });
 	const handleClick = (storyId) => selectedStoryId(storyId);
 	const onLoad = (data) => {
 		getComments(data.kids);

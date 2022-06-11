@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import convertTime from '../utils/convertTime';
 import replyIcon from '../assets/reply.svg';
 
 const MainContainer = styled.article`
@@ -49,7 +50,7 @@ const Comment = ({ comment }) => {
 			<InfoContainer>
 				<StyledImage image={replyIcon} />
 				<StyledText ml>{comment.by}</StyledText>
-				<StyledText ml>{comment.time}</StyledText>
+				<StyledText ml>-- {convertTime(comment.time)}</StyledText>
 			</InfoContainer>
 			<StyledText area='text' color='#000000'>
 				{comment.text}
