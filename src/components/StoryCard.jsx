@@ -19,11 +19,13 @@ const StyledListItem = styled.div`
 
 const StyledInnerLink = styled(Link)`
 	grid-area: title;
+	width: fit-content;
+	text-transform: uppercase;
 `;
 
 const StyledLink = styled.a`
 	color: ${(props) => props.color || '#7d7d7d'};
-	text-transform: ${(props) => props.uppercase || 'none'};
+	text-transform: ${(props) => (props.uppercase || 'none')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
@@ -37,7 +39,7 @@ const StyledInfoBlock = styled.div`
 const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
-	text-transform: ${(props) => props.uppercase || 'none'};
+	text-transform: ${(props) => (props.uppercase || 'none')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
@@ -69,43 +71,40 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 		location === '/story' && onLoad(story);
 	}, []);
 
-
-
 	return (
 		<>
-		<StyledListItem key={story.id}>
-			<StyledImage area='image' image={rssImg} />
-			{location === '/story' ? (
-				<StyledText area='title' color='#000000'>
-					{story.title}
-				</StyledText>
-			) : (
-				<StyledInnerLink to={'/story'} onClick={() => handleClick(story.id)}>
-					{story.title}
-				</StyledInnerLink>
-			)}
-			<StyledInfoBlock area='textInfo'>
+			<StyledListItem key={story.id}>
+				<StyledImage area='image' image={rssImg} />
 				{location === '/story' ? (
-					<StyledLink href={story.url} target='_blank' rel='noopener noreferrer'>
-						More details...
-					</StyledLink>
-				) : (
-					<StyledText>{story.score} points</StyledText>
-				)}
-				<StyledText borderLeft>by {story.by}</StyledText>
-				<StyledText borderLeft>comments: {story.descendants}</StyledText>
-				<StyledText borderLeft>{convertTime(story.time)}</StyledText>
-				{location === '/story' && (
-					<StyledText borderLeft>
-						<StyledImage marginLR image={commentIcon} />
-						{story.descendants} comments
+					<StyledText area='title' color='#000000' uppercase>
+						{story.title}
 					</StyledText>
+				) : (
+					<StyledInnerLink to={'/story'} onClick={() => handleClick(story.id)}>
+						{story.title}
+					</StyledInnerLink>
 				)}
-			</StyledInfoBlock>
-		
-		</StyledListItem>
+				<StyledInfoBlock area='textInfo'>
+					{location === '/story' ? (
+						<StyledLink href={story.url} target='_blank' rel='noopener noreferrer'>
+							More details...
+						</StyledLink>
+					) : (
+						<StyledText>{story.score} points</StyledText>
+					)}
+					<StyledText borderLeft>by {story.by}</StyledText>
+					<StyledText borderLeft>comments: {story.descendants}</StyledText>
+					<StyledText borderLeft>{convertTime(story.time)}</StyledText>
+					{location === '/story' && (
+						<StyledText borderLeft>
+							<StyledImage marginLR image={commentIcon} />
+							{story.descendants} comments
+						</StyledText>
+					)}
+				</StyledInfoBlock>
+			</StyledListItem>
 			{comments && comments.map((item) => <Comment key={item.id} comment={item} />)}
-			</>
+		</>
 	);
 };
 

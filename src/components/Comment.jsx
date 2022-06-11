@@ -12,6 +12,7 @@ const MainContainer = styled.article`
 	width: max(300px, 50vw);
 	max-width: 700px;
 	margin-left: 50px;
+	margin-top: 20px;
 `;
 
 const InfoContainer = styled.div`
@@ -37,7 +38,6 @@ const StyledImage = styled.span`
 const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
-	text-transform: ${(props) => props.uppercase || 'none'};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-left: ${(props) => (props.ml ? '5px' : '')};
 	display: flex;
