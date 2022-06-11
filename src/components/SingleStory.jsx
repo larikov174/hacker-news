@@ -8,7 +8,7 @@ const Container = styled.section`
 	padding: 0 10px;
 `;
 
-const Story = ({ selectedStory, loading, getComments, comments }) => {
+const SingleStory = ({ selectedStory, loading, getComments, comments }) => {
 	const [story, setStory] = useState(null)
 	const [commentsData, setCommentsData] = useState(null);
 
@@ -30,4 +30,4 @@ const Story = ({ selectedStory, loading, getComments, comments }) => {
 	)
 };
 
-export default Story;
+export default SingleStory;

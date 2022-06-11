@@ -7,7 +7,7 @@ const Container = styled.section`
 	padding: 0 10px;
 `;
 
-const Main = ({ selectedStory, stories, loading, error }) => {
+const StoryList = ({ selectedStory, stories, loading, error }) => {
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred, try again later...</div>;
 
@@ -20,4 +20,4 @@ const Main = ({ selectedStory, stories, loading, error }) => {
 	);
 };
 
-export default Main;
+export default StoryList;

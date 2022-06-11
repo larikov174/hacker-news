@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './Header';
-import Main from './Main';
-import Story from './Story';
+import StoryList from './StoryList';
+import SingleStory from './SingleStory';
 import Footer from './Footer';
 import useMainApi from '../hooks/useMainApi';
 
@@ -29,11 +29,11 @@ function App() {
 			<Routes>
 				<Route
 					path='/'
-					element={<Main selectedStory={getStoryById} stories={stories} loading={loading} error={error} />}
+					element={<StoryList selectedStory={getStoryById} stories={stories} loading={loading} error={error} />}
 				/>
 				<Route
 					path='/story'
-					element={<Story selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />}
+					element={<SingleStory selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />}
 				/>
 			</Routes>
 			<Footer />
