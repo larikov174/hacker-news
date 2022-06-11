@@ -74,6 +74,7 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 
 
 	return (
+		<>
 		<StyledListItem key={story.id}>
 			<StyledImage area='image' image={rssImg} />
 			{location === '/story' ? (
@@ -103,9 +104,10 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 					</StyledText>
 				)}
 			</StyledInfoBlock>
-			{comments && comments.map((item) => <Comment key={item.id} comment={item} />)}
 		
 		</StyledListItem>
+			{comments && comments.map((item) => <Comment key={item.id} comment={item} />)}
+			</>
 	);
 };
 
