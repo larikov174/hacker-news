@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fromUnixTime, format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
+import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
-import { useEffect, useState } from 'react';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -102,7 +103,8 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 					</StyledText>
 				)}
 			</StyledInfoBlock>
-			{comments && comments.map((item) => <div key={item.id}><span>{item.id}</span></div>)}
+			{comments && comments.map((item) => <Comment key={item.id} comment={item} />)}
+		
 		</StyledListItem>
 	);
 };
