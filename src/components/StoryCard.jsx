@@ -15,6 +15,7 @@ const StyledListItem = styled.div`
 		'textInfo textInfo';
 	margin-top: 20px;
 	row-gap: 5px;
+	align-items: center;
 `;
 
 const StyledInnerLink = styled(Link)`
@@ -27,7 +28,7 @@ const StyledLink = styled.a`
 	color: ${(props) => props.color || '#7d7d7d'};
 	text-transform: ${(props) => (props.uppercase || 'none')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
-	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
+	margin-left: 5px;
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
 `;
 
@@ -78,6 +79,9 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 				{location === '/story' ? (
 					<StyledText area='title' color='#000000' uppercase>
 						{story.title}
+						<StyledLink href={story.url} target='_blank' rel='noopener noreferrer' borderLeft>
+							More details...
+						</StyledLink>
 					</StyledText>
 				) : (
 					<StyledInnerLink to={'/story'} onClick={() => handleClick(story.id)}>
@@ -85,14 +89,8 @@ const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
 					</StyledInnerLink>
 				)}
 				<StyledInfoBlock area='textInfo'>
-					{location === '/story' ? (
-						<StyledLink href={story.url} target='_blank' rel='noopener noreferrer'>
-							More details...
-						</StyledLink>
-					) : (
-						<StyledText>{story.score} points</StyledText>
-					)}
-					<StyledText borderLeft>by {story.by}</StyledText>
+					{location !== '/story' && <StyledText>{story.score} points</StyledText>}
+					<StyledText borderLeft>article by {story.by}</StyledText>
 					<StyledText borderLeft>comments: {story.descendants}</StyledText>
 					<StyledText borderLeft>{convertTime(story.time)}</StyledText>
 					{location === '/story' && (

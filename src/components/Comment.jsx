@@ -40,6 +40,7 @@ const StyledText = styled.p`
 	grid-area: ${(props) => props.area};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-left: ${(props) => (props.ml ? '5px' : '')};
+	text-transform: ${(props) => (props.uppercase || 'none')};
 	display: flex;
 	align-items: center;
 `;
