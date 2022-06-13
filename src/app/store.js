@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { storyApi } from './story/storyApi';
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
+	reducer: {
+		[storyApi.reducerPath]: storyApi.reducer,
+	},
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(storyApi.middleware),
 });

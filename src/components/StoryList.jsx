@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
+import { useGetPostsQuery, useGetStoriesQuery } from '../app/story/storyApi';
 
 const Container = styled.section`
 	width: 100%;
@@ -7,14 +8,20 @@ const Container = styled.section`
 	padding: 0 10px;
 `;
 
-const StoryList = ({ selectedStory, stories, loading, error }) => {
-	if (loading) return <div>Loading...</div>;
-	if (error) return <div>Error occurred, try again later...</div>;
+const StoryList = ({ selectedStory }) => {
+	const {data = [], isLoading, isError} = useGetPostsQuery(6);
+	console.log(isLoading, data);
+	const {data:newD} = useGetStoriesQuery();
+	if (isLoading) return <div>Loading...</div>;
+	if (isError) return <div>Error occurred</div>;
 
 	return (
 		<Container>
-			{stories.map((post) => (
-				<StoryCard key={post.id} story={post} selectedStoryId={selectedStory} />
+			{!isLoading && data.map((post) => (
+				<StoryCard key={post.data.id} story={post.data} selectedStoryId={selectedStory} />
+			))}
+			{newD && newD.map(item=>(
+				<div key={item}>{item}</div>
 			))}
 		</Container>
 	);

@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from './Header';
-import StoryList from './StoryList';
-import SingleStory from './SingleStory';
-import Footer from './Footer';
-import useMainApi from '../hooks/useMainApi';
+import Header from './components/Header';
+import StoryList from './components/StoryList';
+import SingleStory from './components/SingleStory';
+import Footer from './components/Footer';
+import useMainApi from './hooks/useMainApi';
 
 const MainContainer = styled.div`
 	display: grid;
@@ -20,8 +20,8 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const { loading, error, stories, story, getStoryById, getStories, getComments, comments } = useMainApi();
 	const handleComments = (array) => getComments(array);
+	const { loading, story, getStoryById, getStories, getComments, comments } = useMainApi();
 
 	return (
 		<MainContainer>
@@ -29,11 +29,13 @@ function App() {
 			<Routes>
 				<Route
 					path='/'
-					element={<StoryList selectedStory={getStoryById} stories={stories} loading={loading} error={error} />}
+					element={<StoryList selectedStory={getStoryById} />}
 				/>
 				<Route
 					path='/story'
-					element={<SingleStory selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />}
+					element={
+						<SingleStory selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />
+					}
 				/>
 			</Routes>
 			<Footer />
