@@ -5,7 +5,7 @@ import commentIcon from '../assets/comment-icon.svg';
 import useConvertTime from '../hooks/useConvertTime';
 import { useActions } from '../hooks/useActions';
 
-const StyledListItem = styled.div`
+const StyledContainer = styled.div`
 	display: grid;
 	grid-template-columns: 30px 1fr;
 	grid-template-rows: repeat(2, 1fr);
@@ -67,7 +67,7 @@ const StoryCard = ({ story }) => {
 
 	return (
 		<>
-			<StyledListItem>
+			<StyledContainer>
 				<StyledImage area='image' image={rssImg} />
 				{location === '/story' ? (
 					<StyledText area='title' color='#000000' uppercase>
@@ -93,7 +93,7 @@ const StoryCard = ({ story }) => {
 						</StyledText>
 					)}
 				</StyledInfoBlock>
-			</StyledListItem>
+			</StyledContainer>
 		</>
 	);
 };
