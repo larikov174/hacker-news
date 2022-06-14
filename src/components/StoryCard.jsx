@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
-import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
 import useConvertTime from '../hooks/useConvertTime';
@@ -41,8 +40,10 @@ const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
 	text-transform: ${(props) => props.uppercase || 'none'};
-	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
+	font-size: ${(props) => props.fontSize + 'px'};
+	margin-top: ${(props) => (props.marginTop + 'px')};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
+	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
 	display: flex;
 	align-items: center;
@@ -60,7 +61,7 @@ const StyledImage = styled.span`
 	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
-const StoryCard = ({ story, comments, loadingComments, errorOnLoadComments }) => {
+const StoryCard = ({ story }) => {
 	const { selectStory } = useActions();
 	const location = useLocation().pathname;
 
@@ -93,7 +94,6 @@ const StoryCard = ({ story, comments, loadingComments, errorOnLoadComments }) =>
 					)}
 				</StyledInfoBlock>
 			</StyledListItem>
-			{comments && comments.map((item) => <Comment key={item.data.id} comment={item.data} loading={loadingComments} error={errorOnLoadComments} />)}
 		</>
 	);
 };
