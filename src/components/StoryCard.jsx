@@ -1,9 +1,8 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
 import rssImg from '../assets/rss.svg';
-import commentIcon from '../assets/comment-icon.svg';
-import useConvertTime from '../hooks/useConvertTime';
 import { useActions } from '../hooks/useActions';
+import useConvertTime from '../hooks/useConvertTime';
 
 const StyledContainer = styled.div`
 	display: grid;
@@ -23,14 +22,6 @@ const StyledInnerLink = styled(Link)`
 	text-transform: uppercase;
 `;
 
-const StyledLink = styled.a`
-	color: ${(props) => props.color || '#7d7d7d'};
-	text-transform: ${(props) => props.uppercase || 'none'};
-	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
-	margin-left: 5px;
-	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
-`;
-
 const StyledInfoBlock = styled.div`
 	display: flex;
 	grid-area: ${(props) => props.area};
@@ -41,7 +32,7 @@ const StyledText = styled.p`
 	grid-area: ${(props) => props.area};
 	text-transform: ${(props) => props.uppercase || 'none'};
 	font-size: ${(props) => props.fontSize + 'px'};
-	margin-top: ${(props) => (props.marginTop + 'px')};
+	margin-top: ${(props) => props.marginTop + 'px'};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
@@ -63,38 +54,20 @@ const StyledImage = styled.span`
 
 const StoryCard = ({ story }) => {
 	const { selectStory } = useActions();
-	const location = useLocation().pathname;
 
 	return (
-		<>
-			<StyledContainer>
-				<StyledImage area='image' image={rssImg} />
-				{location === '/story' ? (
-					<StyledText area='title' color='#000000' uppercase>
-						{story.title}
-						<StyledLink href={story.url} target='_blank' rel='noopener noreferrer' borderLeft>
-							{story.url? 'More details...': 'Sorry, but no URL provided yet...'}
-						</StyledLink>
-					</StyledText>
-				) : (
-					<StyledInnerLink to={'/story'} onClick={() => selectStory(story)}>
-						{story.title}
-					</StyledInnerLink>
-				)}
-				<StyledInfoBlock area='textInfo'>
-					{location !== '/story' && <StyledText>{story.score} points</StyledText>}
-					<StyledText borderLeft>article by {story.by}</StyledText>
-					<StyledText borderLeft>comments: {story.kids ? story.kids.length : 0}</StyledText>
-					<StyledText borderLeft>{useConvertTime(story.time)}</StyledText>
-					{location === '/story' && (
-						<StyledText borderLeft>
-							<StyledImage marginLR image={commentIcon} />
-							{story.kids ? story.kids.length : 0} comments
-						</StyledText>
-					)}
-				</StyledInfoBlock>
-			</StyledContainer>
-		</>
+		<StyledContainer>
+			<StyledImage area='image' image={rssImg} />
+			<StyledInnerLink to={'/story'} onClick={() => selectStory(story)}>
+				{story.title}
+			</StyledInnerLink>
+			<StyledInfoBlock area='textInfo'>
+				<StyledText>{story.score} points</StyledText>
+				<StyledText borderLeft>article by {story.by}</StyledText>
+				<StyledText borderLeft>comments: {story.kids ? story.kids.length : 0}</StyledText>
+				<StyledText borderLeft>{useConvertTime(story.time)}</StyledText>
+			</StyledInfoBlock>
+		</StyledContainer>
 	);
 };
 
