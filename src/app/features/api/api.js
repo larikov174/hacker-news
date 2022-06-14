@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_URL } from '../../utils/const';
+import { BASE_URL } from '../../../utils/const';
 
-export const storyApi = createApi({
+export const api = createApi({
 	reducerPath: 'api/stories',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['Stories', 'Comments'],
@@ -43,4 +43,4 @@ export const storyApi = createApi({
 	}),
 });
 
-export const { useGetPostsQuery, useGetCommentsQuery } = storyApi;
+export const { useGetPostsQuery, useGetCommentsQuery } = api;

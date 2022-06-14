@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
-import { useGetPostsQuery } from '../app/story/storyApi';
+import { useGetPostsQuery } from '../app/features/api/api';
 
 const Container = styled.section`
 	width: 100%;

@@ -1,7 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { storyActions } from '../app/story/storySlice';
-import { commentActions } from '../app/story/commentSlice';
+import { storyActions } from '../app/features/stories/storySlice';
+import { commentActions } from '../app/features/comments/commentSlice';
 
 const allActions = {
 	...storyActions,
