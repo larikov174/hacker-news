@@ -58,7 +58,7 @@ const Comment = ({ comment, loading, error }) => {
 				<StyledText ml>-- {convertedTime}</StyledText>
 			</InfoContainer>
 			<StyledText area='text' color='#000000'>
-				{comment.text}
+				<span dangerouslySetInnerHTML={{ __html: comment.text }} />
 			</StyledText>
 		</MainContainer>
 	);
