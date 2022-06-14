@@ -72,7 +72,7 @@ const StoryCard = ({ story, comments, loadingComments, errorOnLoadComments }) =>
 					<StyledText area='title' color='#000000' uppercase>
 						{story.title}
 						<StyledLink href={story.url} target='_blank' rel='noopener noreferrer' borderLeft>
-							More details...
+							{story.url? 'More details...': 'Sorry, but no URL provided yet...'}
 						</StyledLink>
 					</StyledText>
 				) : (
