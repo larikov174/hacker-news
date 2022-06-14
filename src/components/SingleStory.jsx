@@ -91,7 +91,7 @@ const SingleStory = () => {
 		};
 	}, [refetch]);
 
-	const commentsTitle = () => (
+	const defaultTitle = () => (
 		<TitleContainer onClick={handleUpdate}>
 			<StyledText color='#000000' uppercase>
 				comments
@@ -100,14 +100,14 @@ const SingleStory = () => {
 		</TitleContainer>
 	);
 
-	const noComments = () => <StyledText marginTop='30'>No comments yet...</StyledText>;
+	const fallbackTitle = (titleString) => <StyledText marginTop='30'>{titleString}</StyledText>;
 
-	const defineTitle = ()=>{
-		if(isLoading) return <StyledText marginTop='30'>Loading...</StyledText>
-		if(isError && data.length > 0) return <StyledText marginTop='30'>Error</StyledText>
-		if(!isLoading && !isError && data.length > 0) return commentsTitle();
-		return noComments();
-	}
+	const defineTitle = () => {
+		if (isLoading) return fallbackTitle('Loading...');
+		if (isError && data.length > 0) return fallbackTitle('Error...');
+		if (!isLoading && !isError && data.length > 0) return defaultTitle();
+		return fallbackTitle('No comments yet...');
+	};
 
 	return (
 		<Container>
