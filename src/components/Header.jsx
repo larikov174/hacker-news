@@ -2,6 +2,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useActions } from '../hooks/useActions';
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
+import { useGetPostsQuery } from '../app/features/api/api';
+import { LIST_LIMIT_LENGTH } from '../utils/const';
 
 const Container = styled.header`
 	grid-area: header;
@@ -55,12 +57,14 @@ const Header = ({ updateOnClick }) => {
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 	const { clearSelectedStories, clearComments } = useActions();
+	const { refetch } = useGetPostsQuery(LIST_LIMIT_LENGTH);
+
 	const handleBackHome = () => {
 		clearSelectedStories();
 		clearComments();
 		navigate('/');
 	};
-	const handleUpdate = () => updateOnClick();
+	const handleUpdate = () => refetch();
 
 	return (
 		<Container>

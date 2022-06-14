@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
 import { useGetPostsQuery } from '../app/features/api/api';
+import { LIST_LIMIT_LENGTH } from '../utils/const';
 
 const Container = styled.section`
 	width: 100%;
@@ -9,7 +10,7 @@ const Container = styled.section`
 `;
 
 const StoryList = () => {
-	const { data = [], isLoading, isError } = useGetPostsQuery(20);
+	const { data = [], isLoading, isError } = useGetPostsQuery(LIST_LIMIT_LENGTH);
 	if (isLoading) return <div>Loading...</div>;
 	if (isError) return <div>Error occurred</div>;
 
