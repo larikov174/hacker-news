@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useActions } from '../hooks/useActions';
 import styled from 'styled-components';
@@ -53,7 +54,7 @@ const Button = styled.button`
 	}
 `;
 
-const Header = ({ updateOnClick }) => {
+const Header = () => {
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
 	const { clearSelectedStories, clearComments } = useActions();
@@ -65,6 +66,15 @@ const Header = ({ updateOnClick }) => {
 		navigate('/');
 	};
 	const handleUpdate = () => refetch();
+
+	useEffect(() => {
+	setInterval(() => {
+		refetch();
+	}, 60000);
+	return () => {
+		clearInterval(refetch());
+	};
+}, [refetch]);
 
 	return (
 		<Container>
