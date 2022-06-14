@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import StoryCard from './StoryCard';
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Container = styled.section`
 	width: 100%;
@@ -9,23 +9,12 @@ const Container = styled.section`
 `;
 
 const SingleStory = ({ selectedStory, loading, getComments, comments }) => {
-	const [story, setStory] = useState(null)
-	const [commentsData, setCommentsData] = useState(null);
-
-	useEffect(() => {
-		setStory(selectedStory);
-	}, [selectedStory]);
-
-	useEffect(() => {
-		setCommentsData(comments);
-	}, [comments]);
-	
-	if (loading) return <div>Loading...</div>;
+	const {story} = useSelector(state=>state)
 
 	return (
 	story &&
 		<Container>
-			<StoryCard story={story} getComments={getComments} comments={commentsData} />
+			{story && <StoryCard story={story[0]} getComments={getComments} />}
 		</Container>
 	)
 };
