@@ -45,6 +45,10 @@ const StyledText = styled.p`
 	align-items: center;
 `;
 
+const StyledSpan = styled.span`
+	text-transform: none;
+`;
+
 const Comment = ({ comment, loading, error }) => {
 	const convertedTime = useConvertTime(comment.time);
 	if (loading) return <div>Loading...</div>;
@@ -57,9 +61,13 @@ const Comment = ({ comment, loading, error }) => {
 				<StyledText ml>{comment.by}</StyledText>
 				<StyledText ml>-- {convertedTime}</StyledText>
 			</InfoContainer>
-			<StyledText area='text' color='#000000'>
-				<span dangerouslySetInnerHTML={{ __html: comment.text }} />
-			</StyledText>
+			{comment.dead ? (
+				<StyledText>This comment has been stolen by hackers :-)</StyledText>
+			) : (
+				<StyledText area='text' color='#000000'>
+					<StyledSpan dangerouslySetInnerHTML={{ __html: comment.text }} />
+				</StyledText>
+			)}
 		</MainContainer>
 	);
 };
