@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
-import convertTime from '../utils/convertTime';
-import { useActions } from '../hooks/useActions'
+import useConvertTime from '../hooks/useConvertTime';
+import { useActions } from '../hooks/useActions';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -26,7 +26,7 @@ const StyledInnerLink = styled(Link)`
 
 const StyledLink = styled.a`
 	color: ${(props) => props.color || '#7d7d7d'};
-	text-transform: ${(props) => (props.uppercase || 'none')};
+	text-transform: ${(props) => props.uppercase || 'none'};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-left: 5px;
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
@@ -40,7 +40,7 @@ const StyledInfoBlock = styled.div`
 const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
-	text-transform: ${(props) => (props.uppercase || 'none')};
+	text-transform: ${(props) => props.uppercase || 'none'};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
@@ -63,8 +63,6 @@ const StyledImage = styled.span`
 const StoryCard = ({ story, comments }) => {
 	const { selectStory } = useActions();
 	const location = useLocation().pathname;
-console.log(comments);
-
 
 	return (
 		<>
@@ -85,12 +83,12 @@ console.log(comments);
 				<StyledInfoBlock area='textInfo'>
 					{location !== '/story' && <StyledText>{story.score} points</StyledText>}
 					<StyledText borderLeft>article by {story.by}</StyledText>
-					<StyledText borderLeft>comments: {story.kids? story.kids.length: 0}</StyledText>
-					<StyledText borderLeft>{convertTime(story.time)}</StyledText>
+					<StyledText borderLeft>comments: {story.kids ? story.kids.length : 0}</StyledText>
+					<StyledText borderLeft>{useConvertTime(story.time)}</StyledText>
 					{location === '/story' && (
 						<StyledText borderLeft>
 							<StyledImage marginLR image={commentIcon} />
-							{story.kids? story.kids.length: 0} comments
+							{story.kids ? story.kids.length : 0} comments
 						</StyledText>
 					)}
 				</StyledInfoBlock>

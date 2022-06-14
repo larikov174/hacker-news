@@ -4,7 +4,6 @@ import Header from './components/Header';
 import StoryList from './components/StoryList';
 import SingleStory from './components/SingleStory';
 import Footer from './components/Footer';
-import useMainApi from './hooks/useMainApi';
 
 const MainContainer = styled.div`
 	display: grid;
@@ -20,23 +19,12 @@ const MainContainer = styled.div`
 `;
 
 function App() {
-	const handleComments = (array) => getComments(array);
-	const { loading, story, getStoryById, getStories, getComments, comments } = useMainApi();
-
 	return (
 		<MainContainer>
-			<Header updateOnClick={getStories} />
+			<Header />
 			<Routes>
-				<Route
-					path='/'
-					element={<StoryList selectedStory={getStoryById} />}
-				/>
-				<Route
-					path='/story'
-					element={
-						<SingleStory selectedStory={story} loading={loading} getComments={handleComments} comments={comments} />
-					}
-				/>
+				<Route path='/' element={<StoryList />} />
+				<Route path='/story' element={<SingleStory />} />
 			</Routes>
 			<Footer />
 		</MainContainer>
