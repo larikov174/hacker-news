@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useActions } from '../hooks/useActions'
+import { useActions } from '../hooks/useActions';
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
 
@@ -54,10 +54,11 @@ const Button = styled.button`
 const Header = ({ updateOnClick }) => {
 	const navigate = useNavigate();
 	const location = useLocation().pathname;
-	const {clearSelected} = useActions();
+	const { clearSelectedStories, clearComments } = useActions();
 	const handleBackHome = () => {
-		clearSelected();
-		navigate('/')
+		clearSelectedStories();
+		clearComments();
+		navigate('/');
 	};
 	const handleUpdate = () => updateOnClick();
 

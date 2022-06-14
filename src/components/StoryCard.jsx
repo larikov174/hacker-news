@@ -61,8 +61,10 @@ const StyledImage = styled.span`
 `;
 
 const StoryCard = ({ story, comments }) => {
-	const { select } = useActions();
+	const { selectStory } = useActions();
 	const location = useLocation().pathname;
+console.log(comments);
+
 
 	return (
 		<>
@@ -76,24 +78,24 @@ const StoryCard = ({ story, comments }) => {
 						</StyledLink>
 					</StyledText>
 				) : (
-					<StyledInnerLink to={'/story'} onClick={() => select(story)}>
+					<StyledInnerLink to={'/story'} onClick={() => selectStory(story)}>
 						{story.title}
 					</StyledInnerLink>
 				)}
 				<StyledInfoBlock area='textInfo'>
 					{location !== '/story' && <StyledText>{story.score} points</StyledText>}
 					<StyledText borderLeft>article by {story.by}</StyledText>
-					<StyledText borderLeft>comments: {story.descendants}</StyledText>
+					<StyledText borderLeft>comments: {story.kids? story.kids.length: 0}</StyledText>
 					<StyledText borderLeft>{convertTime(story.time)}</StyledText>
 					{location === '/story' && (
 						<StyledText borderLeft>
 							<StyledImage marginLR image={commentIcon} />
-							{story.descendants} comments
+							{story.kids? story.kids.length: 0} comments
 						</StyledText>
 					)}
 				</StyledInfoBlock>
 			</StyledListItem>
-			{comments && comments.map((item) => <Comment key={item.id} comment={item} />)}
+			{comments && comments.map((item) => <Comment key={item.data.id} comment={item.data} />)}
 		</>
 	);
 };

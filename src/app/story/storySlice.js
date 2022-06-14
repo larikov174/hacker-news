@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = [];
 
 export const storySlice = createSlice({
-	name: 'story',
+	name: 'slice/story',
 	initialState,
 	reducers: {
-		select: (state, action) => {
+		selectStory: (state, action) => {
 			state.push(action.payload);
 		},
-		clearSelected: (state, action) => {
+		clearSelectedStories: (state, action) => {
 			state.length = 0;
 			return state;
 		},
