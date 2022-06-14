@@ -68,20 +68,23 @@ const Header = () => {
 	const handleUpdate = () => refetch();
 
 	useEffect(() => {
-	setInterval(() => {
-		refetch();
-	}, 60000);
-	return () => {
-		clearInterval(refetch());
-	};
-}, [refetch]);
+		setInterval(() => {
+			refetch();
+		}, 60000);
+		return () => {
+			clearInterval(refetch());
+		};
+	}, [refetch]);
 
 	return (
 		<Container>
 			<Logo />
 			<Title>Hacker news</Title>
-			<Button onClick={handleUpdate}>update</Button>
-			{location === '/story' && <Button onClick={handleBackHome}>home</Button>}
+			{location === '/story' ? (
+				<Button onClick={handleBackHome}>home</Button>
+			) : (
+				<Button onClick={handleUpdate}>update</Button>
+			)}
 		</Container>
 	);
 };
