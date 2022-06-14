@@ -8,7 +8,7 @@ const Container = styled.section`
 	padding: 0 10px;
 `;
 
-const StoryList = ({ selectedStory }) => {
+const StoryList = () => {
 	const { data = [], isLoading, isError } = useGetPostsQuery(5);
 	if (isLoading) return <div>Loading...</div>;
 	if (isError) return <div>Error occurred</div>;
@@ -16,7 +16,7 @@ const StoryList = ({ selectedStory }) => {
 	return (
 		<Container>
 			{data.map((post) => (
-				<StoryCard key={post.data.id} story={post.data} selectedStoryId={selectedStory} />
+				<StoryCard key={post.data.id} story={post.data} />
 			))}
 		</Container>
 	);

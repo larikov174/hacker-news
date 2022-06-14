@@ -4,6 +4,8 @@ import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
 import commentIcon from '../assets/comment-icon.svg';
 import convertTime from '../utils/convertTime';
+import { useActions } from '../hooks/useActions'
+import { useSelector } from 'react-redux';
 
 const StyledListItem = styled.div`
 	display: grid;
@@ -59,9 +61,11 @@ const StyledImage = styled.span`
 	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
-const StoryCard = ({ selectedStoryId, story, comments }) => {
-	const handleClick = (storyId) => selectedStoryId(storyId);
+const StoryCard = ({ story, comments }) => {
 
+	const { select } = useActions();
+	// const {story:act} = useSelector(state=>state)
+	// console.log(act);
 
 	const location = useLocation().pathname;
 
@@ -77,7 +81,7 @@ const StoryCard = ({ selectedStoryId, story, comments }) => {
 						</StyledLink>
 					</StyledText>
 				) : (
-					<StyledInnerLink to={'/story'} onClick={() => handleClick(story.id)}>
+					<StyledInnerLink to={'/story'} onClick={() => select(story)}>
 						{story.title}
 					</StyledInnerLink>
 				)}
