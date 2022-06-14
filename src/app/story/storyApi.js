@@ -20,7 +20,8 @@ export const storyApi = createApi({
 					const stories = await arrayWithIds.data;
 					const promises = stories.map((id) => fetchWithBQ(`/item/${id}.json?print=pretty`));
 					const data = await Promise.all(promises);
-					return { data };
+					const arr = JSON.parse(JSON.stringify(data));
+					return { data: arr };
 				} catch (e) {
 					return { error: e.message };
 				}
