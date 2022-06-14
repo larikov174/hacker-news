@@ -60,7 +60,7 @@ const StyledImage = styled.span`
 	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
-const StoryCard = ({ story, comments }) => {
+const StoryCard = ({ story, comments, loadingComments, errorOnLoadComments }) => {
 	const { selectStory } = useActions();
 	const location = useLocation().pathname;
 
@@ -93,7 +93,7 @@ const StoryCard = ({ story, comments }) => {
 					)}
 				</StyledInfoBlock>
 			</StyledListItem>
-			{comments && comments.map((item) => <Comment key={item.data.id} comment={item.data} />)}
+			{comments && comments.map((item) => <Comment key={item.data.id} comment={item.data} loading={loadingComments} error={errorOnLoadComments} />)}
 		</>
 	);
 };

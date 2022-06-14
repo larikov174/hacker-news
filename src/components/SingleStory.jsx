@@ -11,14 +11,13 @@ const Container = styled.section`
 
 const SingleStory = () => {
 	const {story} = useSelector(state=>state)
-	const { data = [] } = useGetCommentsQuery(story[0].kids)
+	const { data = [], isLoading, error } = useGetCommentsQuery(story[0].kids)
 	// if (isLoading) return <div>Loading...</div>;
 	// if (isError) return <div>Error occurred</div>;
 
 	return (
-	story &&
 		<Container>
-			{story && <StoryCard story={story[0]} comments={data}/>}
+			{story && <StoryCard story={story[0]} comments={data} loadingComments={isLoading} errorOnLoadComments={error} />}
 		</Container>
 	)
 };

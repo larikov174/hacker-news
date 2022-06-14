@@ -40,18 +40,22 @@ const StyledText = styled.p`
 	grid-area: ${(props) => props.area};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	margin-left: ${(props) => (props.ml ? '5px' : '')};
-	text-transform: ${(props) => (props.uppercase || 'none')};
+	text-transform: ${(props) => props.uppercase || 'none'};
 	display: flex;
 	align-items: center;
 `;
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, loading, error }) => {
+	const convertedTime = useConvertTime(comment.time);
+	if (loading) return <div>Loading...</div>;
+	if (error) return <div>Error occurred</div>;
+
 	return (
 		<MainContainer>
 			<InfoContainer>
 				<StyledImage image={replyIcon} />
 				<StyledText ml>{comment.by}</StyledText>
-				<StyledText ml>-- {useConvertTime(comment.time)}</StyledText>
+				<StyledText ml>-- {convertedTime}</StyledText>
 			</InfoContainer>
 			<StyledText area='text' color='#000000'>
 				{comment.text}
