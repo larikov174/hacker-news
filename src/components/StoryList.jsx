@@ -15,8 +15,9 @@ const StoryList = ({ selectedStory }) => {
 
 	return (
 		<Container>
-			{!isLoading &&
-				data.map((post) => <StoryCard key={post.data.id} story={post.data} selectedStoryId={selectedStory} />)}
+			{data.map((post) => (
+				<StoryCard key={post.data.id} story={post.data} selectedStoryId={selectedStory} />
+			))}
 		</Container>
 	);
 };

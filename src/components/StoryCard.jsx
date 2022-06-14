@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Comment from './Comment';
 import rssImg from '../assets/rss.svg';
@@ -60,21 +59,15 @@ const StyledImage = styled.span`
 	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
-const StoryCard = ({ selectedStoryId, story, getComments, comments }) => {
+const StoryCard = ({ selectedStoryId, story, comments }) => {
 	const handleClick = (storyId) => selectedStoryId(storyId);
-	const onLoad = (data) => {
-		getComments(data.kids);
-	};
+
 
 	const location = useLocation().pathname;
 
-	useEffect(() => {
-		location === '/story' && onLoad(story);
-	}, []);
-
 	return (
 		<>
-			<StyledListItem key={story.id}>
+			<StyledListItem>
 				<StyledImage area='image' image={rssImg} />
 				{location === '/story' ? (
 					<StyledText area='title' color='#000000' uppercase>
