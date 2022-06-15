@@ -18,5 +18,6 @@ export const StyledText = styled.p`
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
+	margin: ${(props) => props.margin};
 	text-transform: ${(props) => (props.uppercase ? 'uppercase' : 'none')};
 `;

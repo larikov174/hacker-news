@@ -7,7 +7,7 @@ import refreshIcon from '../assets/refresh.svg';
 import rssIcon from '../assets/rss.svg';
 import useConvertTime from '../hooks/useConvertTime';
 import { Icon } from '../ui/icon';
-import { StyledTitle } from '../ui/text';
+import { StyledText, StyledTitle } from '../ui/text';
 import Comment from './Comment';
 
 const Container = styled.section`
@@ -47,18 +47,6 @@ const TitleContainer = styled.div`
 	}
 `;
 
-const StyledText = styled.p`
-	color: ${(props) => props.color || '#7d7d7d'};
-	grid-area: ${(props) => props.area};
-	margin-top: ${(props) => props.marginTop + 'px'};
-	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
-	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
-	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
-	display: flex;
-	align-items: center;
-	text-transform: ${(props) => props.uppercase? 'uppercase' : 'none'};
-`;
-
 const StyledLink = styled.a`
 	color: ${(props) => props.color || '#7d7d7d'};
 	text-transform: ${(props) => props.uppercase || 'none'};
@@ -84,9 +72,7 @@ const SingleStory = () => {
 
 	const defaultTitle = () => (
 		<TitleContainer onClick={handleUpdate}>
-			<StyledTitle margin='0 10px'>
-				comments
-			</StyledTitle>
+			<StyledTitle margin='0 10px'>comments</StyledTitle>
 			<Icon image={refreshIcon} />
 		</TitleContainer>
 	);
@@ -104,13 +90,11 @@ const SingleStory = () => {
 		<Container>
 			<StyledContainer>
 				<Icon area='image' image={rssIcon} />
-				<StyledTitle area='title'>
-					{story[0].title}
-				</StyledTitle>
+				<StyledTitle area='title'>{story[0].title}</StyledTitle>
 				<StyledInfoBlock area='textInfo'>
-					<StyledText borderLeft>article by {story[0].by}</StyledText>
-					<StyledText borderLeft>{useConvertTime(story[0].time)}</StyledText>
-					<StyledText borderLeft>
+					<StyledText grey borderLeft>article by {story[0].by}</StyledText>
+					<StyledText grey borderLeft>{useConvertTime(story[0].time)}</StyledText>
+					<StyledText grey borderLeft>
 						<Icon margin image={commentIcon} />
 						{story[0].kids ? story[0].kids.length : 0}
 					</StyledText>

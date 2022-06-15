@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledText } from '../ui/text';
 
 const Container = styled.footer`
 	grid-area: footer;
@@ -16,17 +17,12 @@ const Container = styled.footer`
 	}
 `;
 
-const Credits = styled.p`
-	color: #7d7d7d;
-	text-transform: none;
-`;
-
 const Footer = () => {
 	const currentDate = new Date();
 
 	return (
 		<Container>
-			<Credits>&copy; {currentDate.getFullYear()} Андрей Лариков</Credits>
+			<StyledText grey>&copy; {currentDate.getFullYear()} Андрей Лариков</StyledText>
 		</Container>
 	);
 };

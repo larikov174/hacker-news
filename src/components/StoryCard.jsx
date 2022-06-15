@@ -5,6 +5,7 @@ import rssIcon from '../assets/rss.svg';
 import { useActions } from '../hooks/useActions';
 import useConvertTime from '../hooks/useConvertTime';
 import { Icon } from '../ui/icon';
+import { StyledText } from '../ui/text';
 
 const StyledContainer = styled.div`
 	display: grid;
@@ -29,19 +30,6 @@ const StyledInfoBlock = styled.div`
 	grid-area: ${(props) => props.area};
 `;
 
-const StyledText = styled.p`
-	color: ${(props) => props.color || '#7d7d7d'};
-	grid-area: ${(props) => props.area};
-	text-transform: ${(props) => props.uppercase || 'none'};
-	font-size: ${(props) => props.fontSize + 'px'};
-	margin-top: ${(props) => props.marginTop + 'px'};
-	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
-	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
-	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
-	display: flex;
-	align-items: center;
-`;
-
 const StoryCard = ({ story }) => {
 	const { selectStory } = useActions();
 
@@ -53,9 +41,12 @@ const StoryCard = ({ story }) => {
 			</StyledInnerLink>
 			<StyledInfoBlock area='textInfo'>
 				<StyledText>{story.score} points</StyledText>
-				<StyledText borderLeft>article by {story.by}</StyledText>
-				<StyledText borderLeft><Icon margin image={commentsIcon} />{story.kids ? story.kids.length : 0}</StyledText>
-				<StyledText borderLeft>{useConvertTime(story.time)}</StyledText>
+				<StyledText grey borderLeft>article by {story.by}</StyledText>
+				<StyledText grey borderLeft>
+					<Icon margin image={commentsIcon} />
+					{story.kids ? story.kids.length : 0}
+				</StyledText>
+				<StyledText grey borderLeft>{useConvertTime(story.time)}</StyledText>
 			</StyledInfoBlock>
 		</StyledContainer>
 	);
