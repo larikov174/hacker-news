@@ -19,7 +19,7 @@ const StyledContainer = styled.div`
 	align-items: center;
 `;
 
-const StyledInnerLink = styled(Link)`
+const StyledLink = styled(Link)`
 	grid-area: title;
 	width: fit-content;
 	text-transform: uppercase;
@@ -36,9 +36,9 @@ const StoryCard = ({ story }) => {
 	return (
 		<StyledContainer>
 			<Icon area='image' image={rssIcon} />
-			<StyledInnerLink to={'/story'} onClick={() => selectStory(story)}>
+			<StyledLink to={'/story'} onClick={() => selectStory(story)}>
 				{story.title}
-			</StyledInnerLink>
+			</StyledLink>
 			<StyledInfoBlock area='textInfo'>
 				<StyledText>{story.score} points</StyledText>
 				<StyledText grey borderLeft>article by {story.by}</StyledText>
