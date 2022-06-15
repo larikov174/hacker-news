@@ -7,6 +7,9 @@ export const Button = styled.button`
 	margin-left: 20px;
 	border: 1px solid #000000;
 	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	&:hover {
 		cursor: pointer;
 		opacity: 0.7;

@@ -77,7 +77,7 @@ const SingleStory = () => {
 		</TitleContainer>
 	);
 
-	const fallbackTitle = (titleString) => <StyledText marginTop='30'>{titleString}</StyledText>;
+	const fallbackTitle = (titleString) => <StyledText grey marginTop='30'>{titleString}</StyledText>;
 
 	const defineTitle = () => {
 		if (isLoading) return fallbackTitle('Loading...');

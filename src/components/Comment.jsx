@@ -54,7 +54,7 @@ const Comment = ({ comment, loading, error }) => {
 				{replies.length > 0 && (
 					<Button onClick={() => setIsVisible(!isVisible)}>
 						<Icon image={arrowIcon} />
-						<StyledText>Replies</StyledText>
+						<StyledText margin='0 0 0 5px'>Replies</StyledText>
 					</Button>
 				)}
 			</InfoContainer>
