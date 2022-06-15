@@ -27,16 +27,6 @@ const InfoContainer = styled.div`
 	align-items: center;
 `;
 
-const StyledText = styled.p`
-	color: ${(props) => props.color || '#7d7d7d'};
-	grid-area: ${(props) => props.area};
-	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
-	margin-left: ${(props) => (props.ml ? '5px' : '')};
-	text-transform: ${(props) => props.uppercase || 'none'};
-	display: flex;
-	align-items: center;
-`;
-
 const StyledSpan = styled.span`
 	text-transform: none;
 `;
