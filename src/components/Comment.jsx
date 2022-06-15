@@ -7,6 +7,7 @@ import useConvertTime from '../hooks/useConvertTime';
 import { Button } from '../ui/button';
 import { Icon } from '../ui/icon';
 import { StyledText } from '../ui/text';
+import { REFRESH_INTERVAL } from '../utils/const';
 
 const MainContainer = styled.article`
 	display: grid;
@@ -36,7 +37,7 @@ const StyledSpan = styled.span`
 const Comment = ({ comment, loading, error }) => {
 	const convertedTime = useConvertTime(comment.time);
 	const { data: replies = [] } = useGetCommentsQuery(comment.kids, {
-		pollingInterval: 60000,
+		pollingInterval: REFRESH_INTERVAL,
 		refetchOnMountOrArgChange: true
 	});
 	const [isVisible, setIsVisible] = useState(false);

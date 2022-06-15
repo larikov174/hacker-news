@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useGetPostsQuery } from '../app/features/api/api';
 import { StyledText } from '../ui/text';
-import { LIST_LIMIT_LENGTH } from '../utils/const';
+import { LIST_LIMIT_LENGTH, REFRESH_INTERVAL } from '../utils/const';
 import StoryCard from './StoryCard';
 
 const Container = styled.section`
@@ -12,7 +12,7 @@ const Container = styled.section`
 
 const StoryList = () => {
 	const { data = [], isLoading, isError } = useGetPostsQuery(LIST_LIMIT_LENGTH, {
-		pollingInterval: 60000,
+		pollingInterval: REFRESH_INTERVAL,
 		refetchOnMountOrArgChange: true
 	});
 	if (isLoading) return <StyledText grey marginTop='20'>Loading...</StyledText>;

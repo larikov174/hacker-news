@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useGetCommentsQuery } from '../app/features/api/api';
@@ -8,6 +7,7 @@ import rssIcon from '../assets/rss.svg';
 import useConvertTime from '../hooks/useConvertTime';
 import { Icon } from '../ui/icon';
 import { StyledText, StyledTitle } from '../ui/text';
+import { REFRESH_INTERVAL } from '../utils/const';
 import Comment from './Comment';
 
 const Container = styled.section`
@@ -58,20 +58,11 @@ const StyledLink = styled.a`
 const SingleStory = () => {
 	const { story } = useSelector((state) => state);
 	const { data = [], isLoading, isError, refetch } = useGetCommentsQuery(story[0].kids, {
-		pollingInterval: 60000,
+		pollingInterval: REFRESH_INTERVAL,
 		refetchOnMountOrArgChange: true
 	});
 
 	const handleUpdate = () => refetch();
-
-	useEffect(() => {
-		setInterval(() => {
-			refetch();
-		}, 60000);
-		return () => {
-			clearInterval(refetch());
-		};
-	}, [refetch]);
 
 	const defaultTitle = () => (
 		<TitleContainer onClick={handleUpdate}>
