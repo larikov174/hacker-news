@@ -1,9 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from './components/Header';
-import StoryList from './components/StoryList';
-import SingleStory from './components/SingleStory';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import SingleStory from './components/SingleStory';
+import StoryList from './components/StoryList';
 
 const MainContainer = styled.div`
 	display: grid;
@@ -19,12 +20,14 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+	const { story } = useSelector((state) => state);
+
 	return (
 		<MainContainer>
 			<Header />
 			<Routes>
 				<Route path='/' element={<StoryList />} />
-				<Route path='/story' element={<SingleStory />} />
+				<Route path='/story' element={story.length > 0 ? <SingleStory /> : <StoryList />} />
 			</Routes>
 			<Footer />
 		</MainContainer>
