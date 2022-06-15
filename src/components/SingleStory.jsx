@@ -32,7 +32,7 @@ const StyledInfoBlock = styled.div`
 `;
 
 const TitleContainer = styled.div`
-	width: 100%;
+	width: fit-content;
 	height: 30px;
 	display: flex;
 	align-items: center;
@@ -55,6 +55,7 @@ const StyledText = styled.p`
 	padding: ${(props) => (props.borderLeft ? '0 5px' : '')};
 	display: flex;
 	align-items: center;
+	text-transform: ${(props) => props.uppercase? 'uppercase' : 'none'};
 `;
 
 const StyledImage = styled.span`
