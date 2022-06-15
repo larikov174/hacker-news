@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import useConvertTime from '../hooks/useConvertTime';
+import { useGetCommentsQuery } from '../app/features/api/api';
 import replyIcon from '../assets/reply.svg';
+import useConvertTime from '../hooks/useConvertTime';
 
 const MainContainer = styled.article`
 	display: grid;
@@ -51,8 +52,10 @@ const StyledSpan = styled.span`
 
 const Comment = ({ comment, loading, error }) => {
 	const convertedTime = useConvertTime(comment.time);
+	const { data: replies = [] } = useGetCommentsQuery(comment.kids);
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred</div>;
+	console.log(replies);
 
 	return (
 		<MainContainer>
@@ -68,6 +71,25 @@ const Comment = ({ comment, loading, error }) => {
 					<StyledSpan dangerouslySetInnerHTML={{ __html: comment.text }} />
 				</StyledText>
 			)}
+			{replies.length > 0 &&
+				replies.map((reply) => (
+					<MainContainer>
+						<InfoContainer>
+							<StyledImage image={replyIcon} />
+							<StyledText ml>
+								{reply.data.by} to {comment.by}
+							</StyledText>
+							<StyledText ml>-- {convertedTime}</StyledText>
+						</InfoContainer>
+						{reply.data.dead ? (
+							<StyledText>This reply has been stolen by hackers :-)</StyledText>
+						) : (
+							<StyledText area='text' color='#000000'>
+								<StyledSpan dangerouslySetInnerHTML={{ __html: reply.data.text }} />
+							</StyledText>
+						)}
+					</MainContainer>
+				))}
 		</MainContainer>
 	);
 };
