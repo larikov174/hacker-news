@@ -38,6 +38,13 @@ const Header = () => {
 	const handleUpdate = () => refetch();
 
 	useEffect(() => {
+		if(location === '/'){
+			clearSelectedStories();
+			clearComments();
+		}
+	}, [location, clearSelectedStories, clearComments]);
+
+	useEffect(() => {
 		setInterval(() => {
 			refetch();
 		}, 60000);
