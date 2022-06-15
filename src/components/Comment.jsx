@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useGetCommentsQuery } from '../app/features/api/api';
+import arrowIcon from '../assets/arrow-down.svg';
 import replyIcon from '../assets/reply.svg';
 import useConvertTime from '../hooks/useConvertTime';
 
@@ -50,12 +52,32 @@ const StyledSpan = styled.span`
 	text-transform: none;
 `;
 
+const StyledButton = styled.button`
+	width: 80px;
+	height: auto;
+	margin-left: 20px;
+	display: flex;
+	justify-content: space-around;
+	background-color: transparent;
+	box-shadow: none;
+	border: 1px solid black;
+	border-radius: 5px;
+	align-items: center;
+	&:hover {
+		cursor: pointer;
+		opacity: 0.7;
+		will-change: opacity;
+		transition: opacity 0.3s;
+	}
+`;
+
 const Comment = ({ comment, loading, error }) => {
 	const convertedTime = useConvertTime(comment.time);
 	const { data: replies = [] } = useGetCommentsQuery(comment.kids);
+	const [isVisible, setIsVisible] = useState(false);
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error occurred</div>;
-	console.log(replies);
 
 	return (
 		<MainContainer>
@@ -63,6 +85,12 @@ const Comment = ({ comment, loading, error }) => {
 				<StyledImage image={replyIcon} />
 				<StyledText ml>{comment.by}</StyledText>
 				<StyledText ml>-- {convertedTime}</StyledText>
+				{replies.length > 0 && (
+					<StyledButton onClick={() => setIsVisible(!isVisible)}>
+						<StyledImage image={arrowIcon} />
+						<StyledText color='#000000'>Replies</StyledText>
+					</StyledButton>
+				)}
 			</InfoContainer>
 			{comment.dead ? (
 				<StyledText>This comment has been stolen by hackers :-)</StyledText>
@@ -72,8 +100,9 @@ const Comment = ({ comment, loading, error }) => {
 				</StyledText>
 			)}
 			{replies.length > 0 &&
+				isVisible &&
 				replies.map((reply) => (
-					<MainContainer>
+					<MainContainer key={reply.data.id}>
 						<InfoContainer>
 							<StyledImage image={replyIcon} />
 							<StyledText ml>
