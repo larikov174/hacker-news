@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useActions } from '../hooks/useActions';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../assets/logo.svg';
 import { useGetPostsQuery } from '../app/features/api/api';
+import logoIcon from '../assets/logo.svg';
+import { useActions } from '../hooks/useActions';
+import { Button } from '../ui/button';
+import { Icon } from '../ui/icon';
+import { StyledTitle } from '../ui/text';
 import { LIST_LIMIT_LENGTH } from '../utils/const';
 
 const Container = styled.header`
@@ -18,39 +21,6 @@ const Container = styled.header`
 	border-radius: 5px;
 	@media screen and (max-width: 1200px) {
 		border-radius: 0px;
-	}
-`;
-
-const Logo = styled.div`
-	background-image: url(${logo});
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-	width: 30px;
-	height: 30px;
-`;
-
-const Title = styled.h1`
-	font-size: 20px;
-	margin: 0 10px;
-`;
-
-const Button = styled.button`
-	width: 80px;
-	height: 30px;
-	background-color: transparent;
-	margin-left: 20px;
-	border: 1px solid #000000;
-	border-radius: 5px;
-	&:hover {
-		cursor: pointer;
-		opacity: 0.7;
-		will-change: opacity;
-		transition: opacity 0.3s;
-	}
-	&:active {
-		opacity: 0.4;
-		transition: opacity 0.25s;
 	}
 `;
 
@@ -78,12 +48,16 @@ const Header = () => {
 
 	return (
 		<Container>
-			<Logo />
-			<Title>Hacker news</Title>
+			<Icon primary image={logoIcon} />
+			<StyledTitle primary margin='0 10px'>Hacker news</StyledTitle>
 			{location === '/story' ? (
-				<Button onClick={handleBackHome}>home</Button>
+				<Button primary onClick={handleBackHome}>
+					home
+				</Button>
 			) : (
-				<Button onClick={handleUpdate}>update</Button>
+				<Button primary onClick={handleUpdate}>
+					update
+				</Button>
 			)}
 		</Container>
 	);

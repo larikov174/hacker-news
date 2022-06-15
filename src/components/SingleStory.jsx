@@ -6,6 +6,8 @@ import commentIcon from '../assets/comment-icon.svg';
 import refreshIcon from '../assets/refresh.svg';
 import rssIcon from '../assets/rss.svg';
 import useConvertTime from '../hooks/useConvertTime';
+import { Icon } from '../ui/icon';
+import { StyledTitle } from '../ui/text';
 import Comment from './Comment';
 
 const Container = styled.section`
@@ -48,7 +50,6 @@ const TitleContainer = styled.div`
 const StyledText = styled.p`
 	color: ${(props) => props.color || '#7d7d7d'};
 	grid-area: ${(props) => props.area};
-	text-transform: ${(props) => props.uppercase || 'none'};
 	margin-top: ${(props) => props.marginTop + 'px'};
 	margin-right: ${(props) => (props.borderLeft ? '' : '5px')};
 	border-left: ${(props) => (props.borderLeft ? '2px solid #7d7d7d' : '')};
@@ -56,17 +57,6 @@ const StyledText = styled.p`
 	display: flex;
 	align-items: center;
 	text-transform: ${(props) => props.uppercase? 'uppercase' : 'none'};
-`;
-
-const StyledImage = styled.span`
-	background-image: url(${(props) => props.image});
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 15px;
-	height: 15px;
-	display: block;
-	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
 const StyledLink = styled.a`
@@ -94,10 +84,10 @@ const SingleStory = () => {
 
 	const defaultTitle = () => (
 		<TitleContainer onClick={handleUpdate}>
-			<StyledText color='#000000' uppercase>
+			<StyledTitle margin='0 10px'>
 				comments
-			</StyledText>
-			<StyledImage image={refreshIcon} />
+			</StyledTitle>
+			<Icon image={refreshIcon} />
 		</TitleContainer>
 	);
 
@@ -113,16 +103,16 @@ const SingleStory = () => {
 	return (
 		<Container>
 			<StyledContainer>
-				<StyledImage area='image' image={rssIcon} />
-				<StyledText area='title' color='#000000' uppercase>
+				<Icon area='image' image={rssIcon} />
+				<StyledTitle area='title'>
 					{story[0].title}
-				</StyledText>
+				</StyledTitle>
 				<StyledInfoBlock area='textInfo'>
 					<StyledText borderLeft>article by {story[0].by}</StyledText>
 					<StyledText borderLeft>{useConvertTime(story[0].time)}</StyledText>
 					<StyledText borderLeft>
-						<StyledImage marginLR image={commentIcon} />
-						{story[0].kids ? story[0].kids.length : 0} comments
+						<Icon margin image={commentIcon} />
+						{story[0].kids ? story[0].kids.length : 0}
 					</StyledText>
 					<StyledLink href={story[0].url} target='_blank' rel='noopener noreferrer' borderLeft>
 						{story[0].url ? 'More details...' : 'Sorry, but no URL provided yet...'}

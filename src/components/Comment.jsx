@@ -4,6 +4,7 @@ import { useGetCommentsQuery } from '../app/features/api/api';
 import arrowIcon from '../assets/arrow-down.svg';
 import replyIcon from '../assets/reply.svg';
 import useConvertTime from '../hooks/useConvertTime';
+import { Icon } from '../ui/icon';
 
 const MainContainer = styled.article`
 	display: grid;
@@ -24,18 +25,6 @@ const InfoContainer = styled.div`
 	grid-area: info;
 	display: flex;
 	align-items: center;
-`;
-
-const StyledImage = styled.span`
-	background-image: url(${(props) => props.image});
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 15px;
-	height: 15px;
-	display: block;
-	grid-area: ${(props) => props.area || ''};
-	margin: ${(props) => (props.marginLR ? '0 5px' : '')};
 `;
 
 const StyledText = styled.p`
@@ -82,12 +71,12 @@ const Comment = ({ comment, loading, error }) => {
 	return (
 		<MainContainer>
 			<InfoContainer>
-				<StyledImage image={replyIcon} />
+				<Icon image={replyIcon} />
 				<StyledText ml>{comment.by}</StyledText>
 				<StyledText ml>-- {convertedTime}</StyledText>
 				{replies.length > 0 && (
 					<StyledButton onClick={() => setIsVisible(!isVisible)}>
-						<StyledImage image={arrowIcon} />
+						<Icon image={arrowIcon} />
 						<StyledText color='#000000'>Replies</StyledText>
 					</StyledButton>
 				)}
@@ -104,7 +93,7 @@ const Comment = ({ comment, loading, error }) => {
 				replies.map((reply) => (
 					<MainContainer key={reply.data.id}>
 						<InfoContainer>
-							<StyledImage image={replyIcon} />
+							<Icon image={replyIcon} />
 							<StyledText ml>
 								{reply.data.by} to {comment.by}
 							</StyledText>
