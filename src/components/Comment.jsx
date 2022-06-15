@@ -35,7 +35,10 @@ const StyledSpan = styled.span`
 
 const Comment = ({ comment, loading, error }) => {
 	const convertedTime = useConvertTime(comment.time);
-	const { data: replies = [] } = useGetCommentsQuery(comment.kids);
+	const { data: replies = [] } = useGetCommentsQuery(comment.kids, {
+		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true
+	});
 	const [isVisible, setIsVisible] = useState(false);
 
 	if (loading) return <div>Loading...</div>;

@@ -44,15 +44,6 @@ const Header = () => {
 		}
 	}, [location, clearSelectedStories, clearComments]);
 
-	useEffect(() => {
-		setInterval(() => {
-			refetch();
-		}, 60000);
-		return () => {
-			clearInterval(refetch());
-		};
-	}, [refetch]);
-
 	return (
 		<Container>
 			<Icon primary image={logoIcon} />

@@ -57,7 +57,10 @@ const StyledLink = styled.a`
 
 const SingleStory = () => {
 	const { story } = useSelector((state) => state);
-	const { data = [], isLoading, isError, refetch } = useGetCommentsQuery(story[0].kids);
+	const { data = [], isLoading, isError, refetch } = useGetCommentsQuery(story[0].kids, {
+		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true
+	});
 
 	const handleUpdate = () => refetch();
 

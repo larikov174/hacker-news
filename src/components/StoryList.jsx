@@ -11,7 +11,10 @@ const Container = styled.section`
 `;
 
 const StoryList = () => {
-	const { data = [], isLoading, isError } = useGetPostsQuery(LIST_LIMIT_LENGTH);
+	const { data = [], isLoading, isError } = useGetPostsQuery(LIST_LIMIT_LENGTH, {
+		pollingInterval: 60000,
+		refetchOnMountOrArgChange: true
+	});
 	if (isLoading) return <StyledText grey marginTop='20'>Loading...</StyledText>;
 	if (isError) return <StyledText grey>Error occurred</StyledText>;
 
