@@ -34,16 +34,13 @@ const StyledSpan = styled.span`
 	text-transform: none;
 `;
 
-const Comment = ({ comment, loading, error }) => {
+const Comment = ({ comment }) => {
 	const convertedTime = useConvertTime(comment.time);
 	const { data: replies = [] } = useGetCommentsQuery(comment.kids, {
 		pollingInterval: REFRESH_INTERVAL,
 		refetchOnMountOrArgChange: true
 	});
 	const [isVisible, setIsVisible] = useState(false);
-
-	if (loading) return <div>Loading...</div>;
-	if (error) return <div>Error occurred</div>;
 
 	return (
 		<MainContainer>
